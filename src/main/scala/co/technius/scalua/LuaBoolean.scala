@@ -1,6 +1,7 @@
 package co.technius.scalua
 
 import org.luaj.vm2.{LuaValue => LuajValue, LuaBoolean => LuajBoolean}
+import scala.language.implicitConversions
 
 class LuaBoolean(_wrapped: LuajBoolean) extends LuaValue(_wrapped) {
   def this(value: Boolean) = this(LuajValue.valueOf(value))

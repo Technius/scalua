@@ -4,6 +4,7 @@ import java.io.{InputStream, PrintStream, StringReader}
 import org.luaj.{vm2 => luaj}
 import org.luaj.vm2.lib.jse.JsePlatform
 import scala.io.Source
+import scala.language.implicitConversions
 
 class Globals(override val wrapped: luaj.Globals) extends LuaValue(wrapped) {
   def stdin: InputStream = wrapped.STDIN

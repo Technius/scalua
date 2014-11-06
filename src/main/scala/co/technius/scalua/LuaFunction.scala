@@ -1,6 +1,7 @@
 package co.technius.scalua
 
 import org.luaj.{vm2 => luaj}
+import scala.language.implicitConversions
 
 class LuaFunction(override val wrapped: luaj.LuaFunction) extends LuaValue(wrapped)
 
@@ -29,6 +30,6 @@ sealed class Function(f: List[LuaValue] => List[LuaValue]) extends luaj.LuaFunct
 
   override def invoke(vargs: luaj.Varargs) = {
     val l = (for (i <- 1 to vargs.narg) yield LuaValue(vargs.arg(i))).toList
-    luaj.LuaValue.varargsOf(f(l) map (_.wrapped) toArray)
+    luaj.LuaValue.varargsOf(f(l).map(_.wrapped).toArray)
   }
 }

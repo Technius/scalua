@@ -1,6 +1,7 @@
 package co.technius.scalua
 
 import org.luaj.vm2.{LuaValue => LuajValue, LuaTable => LuajTable}
+import scala.language.implicitConversions
 
 class LuaTable(_wrapped: LuajTable) extends LuaValue(_wrapped) {
   def next(key: LuaValue): (LuaValue, LuaValue) = {

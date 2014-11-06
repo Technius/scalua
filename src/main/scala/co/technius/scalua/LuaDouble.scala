@@ -1,6 +1,7 @@
 package co.technius.scalua
 
 import org.luaj.vm2.{LuaDouble => LuajDouble}
+import scala.language.implicitConversions
 
 class LuaDouble(_wrapped: LuajDouble) extends LuaValue(_wrapped) {
   def this(value: Double) = this(LuajDouble.valueOf(value).asInstanceOf[LuajDouble])

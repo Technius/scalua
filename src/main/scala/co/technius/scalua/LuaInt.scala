@@ -1,6 +1,7 @@
 package co.technius.scalua
 
 import org.luaj.vm2.{LuaValue => LuajValue, LuaInteger => LuajInt}
+import scala.language.implicitConversions
 
 class LuaInt(_wrapped: LuajInt) extends LuaValue(_wrapped) {
   type LuaInteger = LuaInt
