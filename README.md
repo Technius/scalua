@@ -9,10 +9,8 @@ Scalua is currently a work-in-progress.
 ## Features
 
 * Operators
-  - Addition: `LuaInt(5) + LuaInt(3)`
-  - Subtraction: `LuaInt(3) - LuaInt(10)`
-  - Multiplication: `LuaInt(2) * LuaInt(3)`
-  - Division: `LuaInt(50) / LuaInt(2)`
+  - Addition & Subtraction: `LuaInt(5) + LuaInt(3) - LuaInt(2)`
+  - Multiplication & Division: `LuaInt(3) * LuaInt(4) / LuaInt(2)`
   - Negate: `-LuaInt(1)`
   - Equality: `LuaInt(1) == LuaInt(1)`
   - Boolean operators: `LuaBoolean(true) && LuaBoolean(true) || LuaBoolean(false)`
@@ -23,8 +21,9 @@ Scalua is currently a work-in-progress.
 * Simple table manipulation
   - Getting: `myTable("key")`
   - Setting: `myTable("key") = "value"`
-* Simple creation of Scala functions to be exposed in Lua:
-  ```
+* Simple creation of exposable Scala functions via `LuaFunction`:
+
+  ```scala
   val helloWorld = LuaFunction {
     case LuaString("hello world") :: List() => {
       List("Argument was 'hello world'")
