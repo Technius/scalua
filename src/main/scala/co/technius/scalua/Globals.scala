@@ -28,6 +28,8 @@ class Globals(override val wrapped: luaj.Globals) extends LuaValue(wrapped) {
 }
 
 object Globals {
-  def standard() = JsePlatform.standardGlobals()
-  def debug() = JsePlatform.debugGlobals()
+  def standard(): Globals = JsePlatform.standardGlobals()
+  def debug(): Globals = JsePlatform.debugGlobals()
+
+  implicit def fromLuaj(g: luaj.Globals): Globals = new Globals(g)
 }
