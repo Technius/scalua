@@ -15,17 +15,17 @@ class Globals(override val wrapped: luaj.Globals) extends LuaValue(wrapped) {
   def stdout_=(value: PrintStream): Unit = wrapped.STDOUT = value
   def stderr_=(value: PrintStream): Unit = wrapped.STDERR = value
 
-  def load(source: Source, chunkName: String) = {
+  def load(source: Source, chunkName: String): LuaValue = {
     val lines = source.getLines.mkString("\n")
     source.close()
-    wrapped.load(new StringReader(lines), chunkName)
+    LuaValue(wrapped.load(new StringReader(lines), chunkName))
   }
 
-  def load(script: String) = wrapped.load(script)
+  def load(script: String): LuaValue = LuaValue(wrapped.load(script))
 
-  def load(script: String, chunkName: String) = wrapped.load(script, chunkName)
+  def load(script: String, chunkName: String): LuaValue = LuaValue(wrapped.load(script, chunkName))
 
-  def loadFile(fileName: String) = wrapped.loadfile(fileName)
+  def loadFile(fileName: String): LuaValue = LuaValue(wrapped.loadfile(fileName))
 }
 
 object Globals {
