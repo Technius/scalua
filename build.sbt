@@ -9,6 +9,6 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.6" % "test"
 
 libraryDependencies += "org.luaj" % "luaj-jse" % "3.0"
 
-// Uncomment to use Akka
-//libraryDependencies += "com.typesafe.akka" % "akka-actor_2.11" % "2.3.3"
+javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
+scalacOptions += "-target:jvm-1.7"
