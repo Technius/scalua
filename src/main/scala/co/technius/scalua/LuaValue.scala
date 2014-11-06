@@ -93,6 +93,8 @@ protected abstract class LuaValue(_wrapped: luaj.LuaValue) {
 
   def unary_~(): LuaValue = LuaValue(_wrapped.not)
 
+  def unary_-(): LuaValue = LuaValue(_wrapped.neg)
+
   override def toString: String = _wrapped.toString
 
   override def equals(other: Any): Boolean = other match {

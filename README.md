@@ -11,6 +11,7 @@ Scalua is currently a work-in-progress.
   - Subtraction: `LuaInt(3) - LuaInt(10)`
   - Multiplication: `LuaInt(2) * LuaInt(3)`
   - Division: `LuaInt(50) / LuaInt(2)`
+  - Negate: `-LuaInt(1)`
   - Equality: `LuaInt(1) == LuaInt(1)`
   - Comparison: `LuaInt(5) > LuaInt(3)`
   - Unary not: `~LuaBoolean(true)`
