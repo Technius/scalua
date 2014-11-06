@@ -40,21 +40,21 @@
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
 
 <ul>
-<li>Scala 2.11</li>
+<li>Scala 2.11.x</li>
 <li>Java 7 or higher</li>
 </ul>
 
 <h3>
-<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h3>
+<a id="build-configuration" class="anchor" href="#build-configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build Configuration</h3>
 
-<p>The files are not available on any repositories yet, so they will have to be built manually:</p>
+<p>To use Scalua as a library dependency, add the following to your build.sbt:</p>
 
-<pre><code>git clone https://github.com/Technius/scalua.git
-cd scalua
-sbt package
+<pre><code>resolvers += Resolver.sonatypeRepo("snapshots")
+
+libraryDependencies += "co.technius" % "scalua" % "0.0.1-SNAPSHOT"
 </code></pre>
 
-<p>Drop the generated jar file into a folder in your project's unmanaged dependencies folder.</p>
+<p>Please note that Scalua is currently still a work-in-progress and is thus only available as a snapshot.</p>
 
 <h3>
 <a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example Usage</h3>
