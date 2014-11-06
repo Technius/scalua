@@ -95,6 +95,17 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
 
   def unary_-(): LuaValue = LuaValue(_wrapped.neg)
 
+  def invoke(args: LuaValue*): List[LuaValue] = {
+    val vargs = luaj.LuaValue.varargsOf(args map(_.wrapped) toArray)
+    val ret = _wrapped.invoke(vargs)
+    (for (i <- 1 to ret.narg) yield LuaValue(ret.arg(i))).toList
+  }
+
+  def invokeMethod(name: String, args: LuaValue*): List[LuaValue] = {
+    val arglist = this :: args.toList
+    this(name).invoke(arglist: _*)
+  }
+
   override def toString: String = _wrapped.toString
 
   override def equals(other: Any): Boolean = other match {
@@ -114,6 +125,8 @@ object LuaValue {
     case l: luaj.LuaDouble => new LuaDouble(l)
     case l: luaj.LuaBoolean => new LuaBoolean(l)
     case l: luaj.LuaString => new LuaString(l)
+    case l: luaj.LuaFunction => new LuaFunction(l)
+    case l: luaj.LuaTable => new LuaTable(l)
     case l: luaj.LuaNil => LuaNil
   }
 
