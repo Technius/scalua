@@ -2,7 +2,7 @@ package co.technius.scalua
 
 import org.luaj.{vm2 => luaj}
 
-protected abstract class LuaValue(_wrapped: luaj.LuaValue) {
+abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
   def wrapped = _wrapped
 
   def +(rhs: Double): LuaValue = LuaValue(_wrapped add rhs)
