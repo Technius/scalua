@@ -34,7 +34,7 @@
         <h3>
 <a id="scalua" class="anchor" href="#scalua" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scalua</h3>
 
-<p>Scalua is a wrapper for (Luaj 3.0)(<a href="http://luaj.org/luaj.html">http://luaj.org/luaj.html</a>), written in Scala.</p>
+<p>Scalua is a wrapper for <a href="http://luaj.org/luaj.html">Luaj 3.0</a>, written in Scala.</p>
 
 <h3>
 <a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
@@ -49,10 +49,9 @@
 
 <p>To use Scalua as a library dependency, add the following to your build.sbt:</p>
 
-<pre><code>resolvers += Resolver.sonatypeRepo("snapshots")
+<div class="highlight highlight-scala"><pre>resolvers <span class="o">+</span><span class="o">=</span> <span class="n">Resolver</span>.sonatypeRepo(<span class="s2">"snapshots"</span>)
 
-libraryDependencies += "co.technius" % "scalua" % "0.0.1-SNAPSHOT"
-</code></pre>
+libraryDependencies <span class="o">+</span><span class="o">=</span> <span class="s2">"co.technius"</span> <span class="o">%</span> <span class="s2">"scalua"</span> <span class="o">%</span> <span class="s2">"0.0.1-SNAPSHOT"</span></pre></div>
 
 <p>Please note that Scalua is currently still a work-in-progress and is thus only available as a snapshot.</p>
 
