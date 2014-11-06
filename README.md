@@ -1,6 +1,6 @@
 # Scalua
 
-Scalua is a wrapper around [LuaJ 3.0](http://luaj.org/), written in Scala.
+Scalua is a wrapper around [LuaJ 3.0](http://luaj.org/luaj.html), written in Scala.
 
 Scalua is currently a work-in-progress.
 
