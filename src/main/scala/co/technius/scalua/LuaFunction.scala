@@ -8,6 +8,8 @@ object LuaFunction {
   implicit def fromLuaj(value: luaj.LuaFunction): LuaFunction = new LuaFunction(value)
 
   def apply(f: List[LuaValue] => List[LuaValue]): LuaFunction = new Function(f)
+
+  def singleReturn(f: List[LuaValue] => LuaValue): LuaFunction = new Function(f andThen (List(_)))
 }
 
 sealed class Function(f: List[LuaValue] => List[LuaValue]) extends luaj.LuaFunction {
