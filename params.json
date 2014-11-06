@@ -1,0 +1,1 @@
+{"name":"Scalua","tagline":"A wrapper for LuaJ, written in Scala","body":"### Scalua\r\n\r\nScalua is a wrapper for (Luaj 3.0)(http://luaj.org/luaj.html), written in Scala.\r\n\r\n### Requirements\r\n\r\n* Scala 2.11\r\n* Java 7 or higher\r\n\r\n### Usage\r\n\r\nTODO\r\n","google":"","note":"Don't delete this file! It's used internally to help with page regeneration."}
