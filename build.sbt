@@ -4,7 +4,7 @@ version := "0.0.1"
 
 scalaVersion := "2.11.4"
 
-libraryDependencies += Seq(
+libraryDependencies ++= Seq(
   "specs2" %% "specs2" % "2.4.9" % "test",
   "org.luaj" % "luaj-jse" % "3.0"
 )
