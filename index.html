@@ -45,9 +45,75 @@
 </ul>
 
 <h3>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h3>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h3>
 
-<p>TODO</p>
+<p>The files are not available on any repositories yet, so they will have to be built manually:</p>
+
+<pre><code>git clone https://github.com/Technius/scalua.git
+cd scalua
+sbt package
+</code></pre>
+
+<p>Drop the generated jar file into a folder in your project's unmanaged dependencies folder.</p>
+
+<h3>
+<a id="example-usage" class="anchor" href="#example-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example Usage</h3>
+
+<div class="highlight highlight-scala"><pre><span class="k">import</span> <span class="nv">co.technius.scalua.</span><span class="nv">_</span>
+
+<span class="c1">// Initialize globals</span>
+<span class="k">val</span> <span class="n">g</span> <span class="o">=</span> <span class="n">Globals</span>.standard
+
+<span class="c1">// Load code from a Source</span>
+<span class="k">val</span> <span class="n">closure</span> <span class="o">=</span> g.load(scala.io.<span class="n">Source</span>.fromFile(<span class="s2">"mycode.lua"</span>), <span class="s2">"mycode.lua"</span>)
+
+<span class="c1">// Call a function</span>
+closure.invoke()
+
+<span class="c1">// Construct numbers</span>
+<span class="k">val</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">List</span>(<span class="n">LuaInt</span>(<span class="m">5</span>), <span class="n">LuaDouble</span>(<span class="m">10.3</span>), <span class="n">LuaInt</span>(<span class="m">7</span>))
+
+<span class="c1">// Construct booleans and strings</span>
+<span class="k">val</span> <span class="n">others</span> <span class="o">=</span> <span class="n">List</span>(<span class="n">LuaBoolean</span>(<span class="kc">true</span>), <span class="n">LuaString</span>(<span class="s2">"Test"</span>))
+
+<span class="c1">// Construct functions</span>
+<span class="k">val</span> <span class="n">myFunction</span> <span class="o">=</span> <span class="n">LuaFunction</span> {
+  <span class="c1">// Pattern match on Lua Values</span>
+  <span class="k">case</span> <span class="n">LuaInt</span>(<span class="m">5</span>) <span class="o">::</span> <span class="n">List</span>() <span class="o">=&gt;</span> <span class="n">List</span>(<span class="n">LuaString</span>(<span class="s2">"Arg is"</span>), <span class="n">LuaInt</span>(<span class="m">5</span>))
+  <span class="k">case</span> <span class="n">List</span>() <span class="o">=&gt;</span> <span class="n">List</span>(<span class="n">LuaString</span>(<span class="s2">"No arguments given"</span>))
+  <span class="k">case</span> _ <span class="o">=&gt;</span> <span class="n">List</span>(<span class="n">LuaString</span>(<span class="s2">"Incorrect usage"</span>))
+}
+
+<span class="c1">// Return only one argument</span>
+<span class="k">val</span> <span class="n">secondFunction</span> <span class="o">=</span> <span class="n">LuaFunction</span>.singleReturn {
+  <span class="k">case</span> <span class="n">List</span>() <span class="o">=&gt;</span> <span class="n">LuaString</span>(<span class="s2">"No args"</span>)
+  <span class="k">case</span> _ <span class="o">=&gt;</span> <span class="n">LuaString</span>(<span class="s2">"Some args"</span>)
+}
+
+<span class="c1">// Load code from Strings</span>
+g.load(<span class="s2">"a = 5"</span>).invoke()
+
+<span class="c1">// Get global variables</span>
+println(g(<span class="s2">"a"</span>)) <span class="c1">// 5</span>
+
+<span class="c1">// Set global variables</span>
+g(<span class="s2">"myFunction"</span>) <span class="o">=</span> myFunction
+g(<span class="s2">"secondFunction"</span>) <span class="o">=</span> secondFunction
+
+g.load(<span class="s2">"print('myFunction(): ' .. myFunction())"</span>, <span class="s2">"test.lua"</span>).invoke()
+g.load(<span class="s2">"print('secondFunction(123): ' .. secondFunction(123))"</span>, <span class="s2">"test.lua"</span>).invoke()
+
+<span class="c1">// Call Lua functions from Scala</span>
+<span class="k">val</span> <span class="n">moreCode</span> <span class="o">=</span> <span class="s">"""</span>
+<span class="s">function myLuaFunction(x)</span>
+<span class="s">  print("x is " .. x)</span>
+<span class="s">  return x * 100</span>
+<span class="s">end</span>
+<span class="s">"""</span>
+g.load(moreCode).invoke()
+<span class="c1">// LuaValue extractors</span>
+<span class="k">val</span> <span class="n">List</span>(<span class="n">LuaInt</span>(x)) <span class="o">=</span> g(<span class="s2">"myLuaFunction"</span>).invoke(<span class="n">LuaInt</span>(<span class="m">5</span>)) <span class="c1">// printed x is 500</span>
+println(x) <span class="c1">// 500</span></pre></div>
       </section>
     </div>
 
