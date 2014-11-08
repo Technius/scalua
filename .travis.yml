@@ -5,8 +5,10 @@ jdk:
 - oraclejdk8
 - oraclejdk7
 before_install:
-- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in project/secring.gpg.enc -out local.secring.gpg -d
-- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in project/pubring.gpg.enc -out local.pubring.gpg -d
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in project/secring.gpg.enc
+  -out local.secring.gpg -d
+- openssl aes-256-cbc -pass pass:$ENCRYPTION_PASSWORD -in project/pubring.gpg.enc
+  -out local.pubring.gpg -d
 script:
 - sbt clean
 - sbt compile
@@ -17,5 +19,5 @@ env:
   global:
   - secure: uqn3s349gvKStDiRGd4L22r1ZT8EFPUC0++f2NZ9eLVfLSD5+Yi6PMhjrWXItVmv9MkSE6XXs7XrR2CHlB7twXyQFHCMnq1y1Lz6MnYRrN9AyF925Bv26jyGoBxiHaow0YYQx3KfvNUvkwZ2msPY6QPM/hR9vUi2d4s/wg1dWJ4=
   - secure: opSfzj7W/Y+e17hlybzcOp2CuFoIibP6fv8yH09imAj9+/LreC+sOz+EYU0mANxuj2xrrw7UxKicAO50zqQi9+KXnYJa4yMwHTU3bkGV++JnRimyAEzuAwkFFykuV4qMbBTYl54XWOvI5pdZODH1eUooF4AgJvPJNbQf3lmvluY=
-  - secure: OUxd0T296oJrrJWC7SWjBkpKIG+hKhCzEg0T+2ACFkUI1v6OFqADkSGEu3s3gQChKE+EzyJaD7nbxjvW9YshKO3m+A8KkMJ3vLLVpqIgUibB3cb15K/wK9GlVFV3IGRn7OWP8GtWlQ6B3+aPqWVhzbPlwDThQehMTz+M7MUax+M=
   - secure: udqBB3/IYkYgEbAvd0XwH/9h8oPJ+OcHJd7oM4SYwanE3tXoGHPYxkJErdJcoD7l5xX9CuBNdbNIpZuUcMbTYYhlupL8pPYGxJv2H2HIz7Vhzs4EUHbCJEhAULzDNWuc7OZv1rW0eT1XDNeFWx6vDDR5+3rcpIorH5xhyeQEv2E=
+  - secure: EQTUTmeTzwB7BeYUJ0zwMCQlRx2DS1YWmCHLXfItCm68WEcWT7LUToaEbuscKzSDO7TiXNNy7xJTuyh1aRYyWwoeWnaY1Uj1BbiiGR0g9M8cNmGaBI0g2VCOr5nMLc1yrvoN29ZC4+2rmqcUKLR/zHgIAA4ChdwwoCVpxQNDpUA=
