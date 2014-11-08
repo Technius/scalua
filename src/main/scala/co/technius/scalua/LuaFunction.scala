@@ -10,6 +10,11 @@ object LuaFunction {
 
   def apply(f: List[LuaValue] => List[LuaValue]): LuaFunction = new Function(f)
 
+  def simple(f: LuaValue => LuaValue): LuaFunction = new Function({
+    case first :: _ => List(first)
+    case _ => List(LuaNil)
+  })
+
   def singleReturn(f: List[LuaValue] => LuaValue): LuaFunction = new Function(f andThen (List(_)))
 }
 
@@ -30,6 +35,7 @@ sealed class Function(f: List[LuaValue] => List[LuaValue]) extends luaj.LuaFunct
 
   override def invoke(vargs: luaj.Varargs) = {
     val l = (for (i <- 1 to vargs.narg) yield LuaValue(vargs.arg(i))).toList
-    luaj.LuaValue.varargsOf(f(l).map(_.wrapped).toArray)
+    val ret = f(l).map(_.wrapped).toArray
+    luaj.LuaValue.varargsOf(if (ret.size == 0) Array(LuaNil.wrapped) else ret)
   }
 }
