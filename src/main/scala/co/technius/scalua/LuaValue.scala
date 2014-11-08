@@ -99,15 +99,36 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
 
   def metatable_=(value: LuaValue): LuaValue = LuaValue(_wrapped.setmetatable(value.wrapped))
 
+  def call(args: LuaValue*): LuaValue = {
+    val vargs = luaj.LuaValue.varargsOf(args.map(_.wrapped).toArray)
+    val ret = _wrapped.invoke(vargs)
+    if (ret.narg > 0) LuaValue(ret.arg(1)) else LuaNil
+  }
+
+  def callFunction(name: String, args: LuaValue*): LuaValue = {
+    this(name).call(args: _*)
+  }
+
+  def callMethod(name: String, args: LuaValue*): LuaValue = {
+    this(name).call(this :: args.toList: _*)
+  }
+
   def invoke(args: LuaValue*): List[LuaValue] = {
     val vargs = luaj.LuaValue.varargsOf(args.map(_.wrapped).toArray)
     val ret = _wrapped.invoke(vargs)
-    (for (i <- 1 to ret.narg) yield LuaValue(ret.arg(i))).toList
+    if (ret.narg == 0) {
+      LuaNil
+    } else {
+      (for (i <- 1 to ret.narg) yield LuaValue(ret.arg(i))).toList
+    }
+  }
+
+  def invokeFunction(name: String, args: LuaValue*): List[LuaValue] = {
+    this(name).invoke(args: _*)
   }
 
   def invokeMethod(name: String, args: LuaValue*): List[LuaValue] = {
-    val arglist = this :: args.toList
-    this(name).invoke(arglist: _*)
+    invokeFunction(name, this :: args.toList: _*)
   }
 
   override def toString: String = _wrapped.toString
