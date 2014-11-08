@@ -115,8 +115,6 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
 
   override def hashCode: Int = _wrapped.hashCode
 }
-//case class LuaTable(value: Map[LuaValue, LuaValue]) extends LuaValue
-case class LuaUserdata(value: Any) extends LuaValue(luaj.LuaValue.userdataOf(value))
 case object LuaNil extends LuaValue(luaj.LuaValue.NIL)
 
 object LuaValue {
@@ -127,6 +125,7 @@ object LuaValue {
     case l: luaj.LuaString => new LuaString(l)
     case l: luaj.LuaFunction => new LuaFunction(l)
     case l: luaj.LuaTable => new LuaTable(l)
+    case l: luaj.LuaUserdata => new LuaUserdata(l)
     case l: luaj.LuaNil => LuaNil
   }
 
