@@ -3,7 +3,7 @@ package co.technius.scalua
 import org.luaj.vm2.{LuaValue => LuajValue, LuaString => LuajString}
 import scala.language.implicitConversions
 
-class LuaString(_wrapped: LuajString) extends LuaValue(_wrapped) {
+class LuaString(override val wrapped: LuajString) extends LuaValue(wrapped) {
   def this(value: String) = this(LuajValue.valueOf(value))
 }
 

@@ -3,9 +3,9 @@ package co.technius.scalua
 import org.luaj.vm2.{LuaValue => LuajValue, LuaTable => LuajTable}
 import scala.language.implicitConversions
 
-class LuaTable(_wrapped: LuajTable) extends LuaValue(_wrapped) {
+class LuaTable(override val wrapped: LuajTable) extends LuaValue(wrapped) {
   def next(key: LuaValue): (LuaValue, LuaValue) = {
-    val tmp = _wrapped.next(key.wrapped)
+    val tmp = wrapped.next(key.wrapped)
     (LuaValue(tmp.arg1), LuaValue(tmp.arg(2)))
   }
 }
