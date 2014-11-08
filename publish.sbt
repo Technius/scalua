@@ -41,3 +41,13 @@ pomExtra := (
     )
   case _ => credentials ++= Seq()
 }
+
+pgpPassphrase := sys.env.get("PGP_PASSWORD") map (_.toCharArray)
+
+val secring = file("local.secring.gpg")
+
+pgpSecretRing := { if (secring.exists) secring else pgpSecretRing.value }
+
+val pubring = file("local.pubring.gpg")
+
+pgpPublicRing := { if (pubring.exists) pubring else pgpPublicRing.value }
