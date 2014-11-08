@@ -95,6 +95,10 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
 
   def unary_-(): LuaValue = LuaValue(_wrapped.neg)
 
+  def metatable: LuaValue = LuaValue(_wrapped.getmetatable)
+
+  def metatable_=(value: LuaValue): LuaValue = LuaValue(_wrapped.setmetatable(value.wrapped))
+
   def invoke(args: LuaValue*): List[LuaValue] = {
     val vargs = luaj.LuaValue.varargsOf(args.map(_.wrapped).toArray)
     val ret = _wrapped.invoke(vargs)
