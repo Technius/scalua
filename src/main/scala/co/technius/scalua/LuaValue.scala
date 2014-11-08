@@ -117,7 +117,7 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
     val vargs = luaj.LuaValue.varargsOf(args.map(_.wrapped).toArray)
     val ret = _wrapped.invoke(vargs)
     if (ret.narg == 0) {
-      LuaNil
+      List(LuaNil)
     } else {
       (for (i <- 1 to ret.narg) yield LuaValue(ret.arg(i))).toList
     }
