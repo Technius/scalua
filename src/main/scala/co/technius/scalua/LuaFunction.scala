@@ -11,7 +11,7 @@ object LuaFunction {
   def apply(f: List[LuaValue] => List[LuaValue]): LuaFunction = new Function(f)
 
   def simple(f: LuaValue => LuaValue): LuaFunction = new Function({
-    case first :: _ => List(first)
+    case first :: _ => List(f(first))
     case _ => List(LuaNil)
   })
 
