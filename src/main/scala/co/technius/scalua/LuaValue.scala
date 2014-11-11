@@ -131,6 +131,10 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
     invokeFunction(name, this :: args.toList: _*)
   }
 
+  def asOpt[T](implicit c: LuaConverter[T]): Option[T] = c.toJava(this)
+
+  def as[T](implicit c: LuaConverter[T]): T = asOpt[T].get
+
   override def toString: String = _wrapped.toString
 
   override def equals(other: Any): Boolean = other match {
