@@ -3,7 +3,7 @@ package co.technius.scalua
 import org.luaj.vm2.{LuaValue => LuajValue, LuaInteger => LuajInt}
 import scala.language.implicitConversions
 
-class LuaInt(override val wrapped: LuajInt) extends LuaValue(wrapped) {
+class LuaInt(override val wrapped: LuajInt) extends LuaNumber(wrapped) {
   type LuaInteger = LuaInt
 
   def this(value: Int) = this(LuajValue.valueOf(value))
