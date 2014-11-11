@@ -8,7 +8,11 @@ class LuaDouble(override val wrapped: LuajDouble) extends LuaNumber(wrapped) {
 }
 
 object LuaDouble {
-  def apply(value: Double) = new LuaDouble(value)
+  def apply(value: Double): LuaNumber = if (value % 1 == 0) {
+    new LuaInt(value.toInt)
+  } else {
+    new LuaDouble(value)
+  }
 
   def unapply(value: LuaValue): Option[Double] = value match {
     case _: LuaDouble => Some(value.wrapped.todouble)

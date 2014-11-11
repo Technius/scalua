@@ -12,6 +12,8 @@ abstract class LuaNumber(override val wrapped: LuajNumber) extends LuaValue(wrap
 object LuaNumber {
   def apply(value: Int) = new LuaInt(value)
 
+  def apply(value: Long) = new LuaDouble(value.toLong)
+
   def apply(value: Double) = new LuaDouble(value)
 
   def apply(value: Float) = new LuaDouble(value.toDouble)
