@@ -133,7 +133,7 @@ abstract class LuaValue protected(_wrapped: luaj.LuaValue) {
 
   def asOpt[T](implicit c: LuaConverter[T]): Option[T] = c.toJava(this)
 
-  def as[T](implicit c: LuaConverter[T]): T = asOpt[T].get
+  def as[T](implicit c: LuaConverter[T]): T = c.toJava(this).get
 
   override def toString: String = _wrapped.toString
 
@@ -157,6 +157,8 @@ object LuaValue {
     case l: luaj.LuaUserdata => new LuaUserdata(l)
     case l: luaj.LuaNil => LuaNil
   }
+
+  def toLua[T](value: T)(implicit c: LuaConverter[T]) = c.toLua(value)
 
   val Nil = LuaNil
 }
