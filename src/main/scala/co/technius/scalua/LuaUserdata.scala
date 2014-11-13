@@ -15,7 +15,7 @@ object LuaUserdata {
 
   def apply(obj: Any, metatable: LuaValue): LuaUserdata = LuajValue.userdataOf(obj, metatable.wrapped)
 
-  def coerce(obj: Any): LuaValue = LuaValue(CoerceJavaToLua.coerce(obj, obj.getClass))
+  def coerce(obj: Any): LuaValue = LuaValue(CoerceJavaToLua.coerce(obj))
 
   def unapply(value: LuaValue): Option[Any] = value match {
     case _: LuaUserdata => Some(value.wrapped.touserdata)
