@@ -26,5 +26,11 @@ class LuaTable(override val wrapped: LuajTable) extends LuaValue(wrapped) {
 
 object LuaTable {
   def apply(): LuaTable = new LuaTable(LuajValue.tableOf())
+
+  def apply(pairs: (String, LuaValue)*): LuaTable = {
+    val keys = pairs flatMap (kv => List(LuajValue.valueOf(kv._1), kv._2.wrapped))
+    new LuaTable(new LuajTable(keys.toArray, Array(), null))
+  }
+
   implicit def fromLuaj(value: LuajTable): LuaTable = new LuaTable(value)
 }
