@@ -1,6 +1,5 @@
 package co.technius
 
-import scala.util.control.Exception._
 import scala.language.experimental.macros
 
 package object scalua {
@@ -51,22 +50,6 @@ package object scalua {
     override def toLua(value: Boolean): LuaValue = LuaBoolean(value)
   }
 
-  implicit def luaValueConverter[T <: LuaValue]: LuaConverter[T] = macro lvConverterImpl[T]
-
-  import scala.reflect.macros.Context
-  def lvConverterImpl[T <: LuaValue: c.WeakTypeTag](
-    c: Context
-  ): c.Expr[LuaConverter[T]] = {
-    import c.universe._
-    val typ = weakTypeOf[T]
-    c.Expr[LuaConverter[T]](q"""new LuaConverter[$typ] {
-      override def toJava(value: LuaValue): Option[$typ] = value match {
-        case x: $typ => Some(x)
-        case _ => None
-      }
-
-      override def toLua(value: $typ): LuaValue = value
-    }
-    """)
-  }
+  implicit def luaValueConverter[T <: LuaValue]: LuaConverter[T] =
+    macro MacroImpl.luaValueConverterImpl[T]
 }
