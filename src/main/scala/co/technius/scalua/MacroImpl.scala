@@ -1,7 +1,7 @@
 package co.technius.scalua
 
 import scala.util.control.Exception._
-import scala.reflect.macros.Context
+import scala.reflect.macros.blackbox.Context
 
 object MacroImpl {
   def luaValueConverterImpl[T <: LuaValue: c.WeakTypeTag](
@@ -23,7 +23,7 @@ object MacroImpl {
   def generateConverterImpl[T: c.WeakTypeTag](c: Context): c.Expr[LuaConverter[T]] = {
     import c.universe._
     val typ = weakTypeOf[T]
-    val dec = typ.declarations
+    val dec = typ.decls
     val methods = dec filter (_.isMethod) map (_.asMethod)
     val caseValues = methods filter (_.isCaseAccessor)
 
@@ -31,7 +31,7 @@ object MacroImpl {
       q"""${cv.name.toString} -> LuaValue.toLua(value.${cv.name})"""
     }
 
-    val ast = c.Expr[LuaConverter[T]](q"""new LuaConverter[$typ] {
+    c.Expr[LuaConverter[T]](q"""new LuaConverter[$typ] {
       override def toJava(value: LuaValue): Option[$typ] = value match {
         case ud: LuaUserdata => {
           val d = ud.data
@@ -47,7 +47,5 @@ object MacroImpl {
       }
     }
     """)
-    showRaw(ast)
-    ast
   }
 }

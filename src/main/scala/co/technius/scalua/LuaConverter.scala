@@ -8,5 +8,5 @@ trait LuaConverter[T] {
 }
 
 object LuaConverter {
-  def generate[T] = macro MacroImpl.generateConverterImpl[T]
+  def generate[T]: LuaConverter[T] = macro MacroImpl.generateConverterImpl[T]
 }

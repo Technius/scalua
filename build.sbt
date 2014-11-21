@@ -15,4 +15,4 @@ libraryDependencies ++= Seq(
 
 javacOptions ++= Seq("-source", "1.7", "-target", "1.7")
 
-scalacOptions ++= Seq("-target:jvm-1.7", "-feature")
+scalacOptions ++= Seq("-target:jvm-1.7", "-feature", "-deprecation")
